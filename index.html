@@ -567,7 +567,7 @@
             100% { width: 100%; }
         }
 
-        /* Content container */
+        /* Content container - FIXED DIMENSIONS */
         .preview-container {
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(20px);
@@ -578,7 +578,10 @@
             position: relative;
             overflow: hidden;
             transition: all 0.4s ease;
-            min-height: 400px;
+            width: 100%;
+            height: 450px;
+            display: flex;
+            flex-direction: column;
         }
 
         .preview-container::before {
@@ -598,13 +601,16 @@
             50% { opacity: 1; }
         }
 
-        /* Content sections */
+        /* Content sections - FILL CONTAINER */
         .content-section {
             display: none;
+            flex: 1;
+            overflow: hidden;
         }
 
         .content-section.active {
-            display: block;
+            display: flex;
+            flex-direction: column;
             animation: fadeInContent 0.5s ease-out;
         }
 
@@ -613,12 +619,17 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* Metrics section */
+        /* Metrics section - FLEX LAYOUT */
         .metrics-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: clamp(16px, 2.5vw, 20px);
-            margin-bottom: clamp(24px, 3vw, 32px);
+            flex: 1;
+        }
+
+        /* Metrics status row - AT BOTTOM */
+        #metrics .status-row {
+            margin-top: auto;
         }
 
         .metric-card {
@@ -672,11 +683,30 @@
             letter-spacing: 0.05em;
         }
 
+        /* Tech section - FLEX LAYOUT */
         .tech-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: clamp(16px, 2.5vw, 20px);
-            margin-bottom: clamp(20px, 3vw, 24px);
+            flex-shrink: 0;
+        }
+
+        /* Complexity showcase - FLEX GROW */
+        .complexity-list {
+            margin-top: 16px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .complexity-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: clamp(10px, 2vw, 14px);
+            transition: all 0.3s ease;
+            flex: 1;
         }
 
         .tech-card {
@@ -724,25 +754,6 @@
             line-height: 1.3;
         }
 
-        /* Complexity showcase */
-        .complexity-list {
-            margin-top: 16px;
-        }
-
-        .complexity-item {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
-            padding: clamp(10px, 2vw, 14px);
-            margin-bottom: 10px;
-            transition: all 0.3s ease;
-        }
-
-        .complexity-item:hover {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(6, 182, 212, 0.2);
-        }
-
         .complexity-challenge {
             font-size: clamp(11px, 1.9vw, 12px);
             color: rgba(255, 255, 255, 0.7);
@@ -755,6 +766,11 @@
             color: var(--success-green);
             font-weight: 500;
             line-height: 1.4;
+        }
+
+        .complexity-item:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(6, 182, 212, 0.2);
         }
 
         /* Screenshot section - BETTER LAYOUT */
