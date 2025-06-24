@@ -768,11 +768,12 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             text-align: center;
             padding: 10px 0;
             min-height: 380px;
+            height: 100%;
         }
 
         .screenshot-display {
@@ -784,6 +785,14 @@
             margin-bottom: 12px;
             position: relative;
             min-height: 280px;
+        }
+
+        .screenshot-bottom {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            margin-top: auto;
         }
 
         .screenshot-image {
@@ -1096,17 +1105,19 @@
                                         <div class="screenshot-note">Add your dashboard screenshots here</div>
                                     </div>
                                 </div>
-                                <div class="screenshot-nav" id="screenshot-nav"></div>
-                                <div class="screenshot-title" id="screenshot-title"></div>
-                                <div class="status-row">
-                                    <div class="status-indicator">
-                                        Agency Performance
-                                    </div>
-                                    <div class="status-indicator">
-                                        Individual Progress
-                                    </div>
-                                    <div class="status-indicator">
-                                        Session Analytics
+                                <div class="screenshot-bottom">
+                                    <div class="screenshot-nav" id="screenshot-nav"></div>
+                                    <div class="screenshot-title" id="screenshot-title"></div>
+                                    <div class="status-row">
+                                        <div class="status-indicator">
+                                            Agency Performance
+                                        </div>
+                                        <div class="status-indicator">
+                                            Individual Progress
+                                        </div>
+                                        <div class="status-indicator">
+                                            Session Analytics
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1207,6 +1218,12 @@
             const titleElement = document.getElementById('screenshot-title');
             const navElement = document.getElementById('screenshot-nav');
             
+            // Add null checks
+            if (!display || !titleElement || !navElement) {
+                console.log('Screenshot elements not found during load');
+                return;
+            }
+            
             // Check if any screenshots exist
             const validScreenshots = screenshotData.filter(shot => shot.src && shot.src !== '');
             
@@ -1221,10 +1238,14 @@
                 
                 // Auto-cycle screenshots if more than one
                 if (validScreenshots.length > 1) {
+                    // Clear any existing interval
+                    if (screenshotInterval) {
+                        clearInterval(screenshotInterval);
+                    }
                     screenshotInterval = setInterval(() => {
                         currentScreenshot = (currentScreenshot + 1) % validScreenshots.length;
                         showScreenshot(currentScreenshot);
-                    }, 6000); // Change every 6 seconds (was 3 seconds)
+                    }, 15000); // Change every 15 seconds (much slower)
                 }
             } else {
                 // Keep placeholder
@@ -1246,6 +1267,12 @@
             const titleElement = document.getElementById('screenshot-title');
             const dots = document.querySelectorAll('.screenshot-dot');
             
+            // Add null checks
+            if (!display || !titleElement) {
+                console.log('Screenshot elements not found');
+                return;
+            }
+            
             const screenshot = validScreenshots[index];
             
             // Update display
@@ -1264,10 +1291,14 @@
             // Update title
             titleElement.textContent = screenshot.title;
             
-            // Update navigation dots
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === index);
-            });
+            // Update navigation dots with null check
+            if (dots && dots.length > 0) {
+                dots.forEach((dot, i) => {
+                    if (dot) {
+                        dot.classList.toggle('active', i === index);
+                    }
+                });
+            }
             
             currentScreenshot = index;
         }
@@ -1351,14 +1382,18 @@
             
             if (logoUrl && logoImg && logoPlaceholder) {
                 logoImg.onload = function() {
-                    logoImg.style.display = 'block';
-                    logoPlaceholder.style.display = 'none';
+                    if (logoImg && logoPlaceholder) {
+                        logoImg.style.display = 'block';
+                        logoPlaceholder.style.display = 'none';
+                    }
                 };
                 logoImg.onerror = function() {
                     console.log('Logo failed to load:', logoUrl);
                     // Keep placeholder visible
                 };
                 logoImg.src = logoUrl;
+            } else {
+                console.log('Logo elements not found or logoUrl missing');
             }
         }
 
