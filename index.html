@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+        /* Tech section - COMPACT BUT COMPLETE */<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -563,7 +563,7 @@
             100% { width: 100%; }
         }
 
-        /* Content container - FIXED SIZE */
+        /* Content container */
         .preview-container {
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(20px);
@@ -574,10 +574,7 @@
             position: relative;
             overflow: hidden;
             transition: all 0.4s ease;
-            height: 450px;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
+            min-height: 400px;
         }
 
         .preview-container::before {
@@ -597,17 +594,14 @@
             50% { opacity: 1; }
         }
 
-        /* Content sections - FIXED DISPLAY ISSUE */
+        /* Content sections */
         .content-section {
             display: none;
-            flex: 1;
-            flex-direction: column;
-            justify-content: space-between;
         }
 
         .content-section.active {
-            display: flex;
-            animation: fadeInContent 0.8s ease-out;
+            display: block;
+            animation: fadeInContent 0.5s ease-out;
         }
 
         @keyframes fadeInContent {
@@ -997,7 +991,7 @@
                         Comprehensive attendance tracking, engagement analytics, and performance insights 
                         across all CLM sessions and training initiatives. Transform data into actionable intelligence.
                     </p>
-                    <button class="cta-button">Launch Dashboard</button>
+                    <button class="cta-button" onclick="window.open('https://app.powerbi.com/links/fCstNjzpCD?ctid=d026e4c1-5892-497a-b9da-ee493c9f0364&pbi_source=linkShare', '_blank')">Launch Dashboard</button>
                 </div>
 
                 <!-- Interactive Preview Panel -->
@@ -1100,8 +1094,8 @@
                                         <div class="screenshot-note">Add your dashboard screenshots here</div>
                                     </div>
                                 </div>
-                                <div class="screenshot-title" id="screenshot-title"></div>
                                 <div class="screenshot-nav" id="screenshot-nav"></div>
+                                <div class="screenshot-title" id="screenshot-title"></div>
                                 <div class="status-row">
                                     <div class="status-indicator">
                                         Agency Performance
@@ -1301,6 +1295,31 @@
                 document.body.classList.add('light-theme');
                 themeToggle.textContent = '🌞';
             }
+            
+            // Load logo and screenshots from GitHub
+            loadLogo('./Logo.png');
+            setupScreenshots([
+                {
+                    src: './1.png',
+                    title: 'Agency Performance Overview',
+                    alt: 'Complete agency performance dashboard showing attendance rates and compliance metrics'
+                },
+                {
+                    src: './2.png', 
+                    title: 'Individual Progress Tracking',
+                    alt: 'Person-by-session attendance matrix with completion percentages'
+                },
+                {
+                    src: './3.png',
+                    title: 'Session Analytics Deep-dive',
+                    alt: 'Detailed session performance metrics with walk-in analysis'
+                },
+                {
+                    src: './4.png',
+                    title: 'Data Quality & Exceptions',
+                    alt: 'Exception reporting showing unmatched attendees and data validation'
+                }
+            ]);
             
             // Start auto-switching tabs after initial animations complete
             setTimeout(() => {
