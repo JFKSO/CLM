@@ -668,7 +668,6 @@
             letter-spacing: 0.05em;
         }
 
-        /* Tech section */
         .tech-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -1286,57 +1285,77 @@
             }
         }
 
-        // Initialize everything
+        // Initialize everything with proper error handling
         document.addEventListener('DOMContentLoaded', function() {
             const savedTheme = localStorage.getItem('theme');
             const themeToggle = document.getElementById('theme-toggle');
             
             if (savedTheme === 'light') {
                 document.body.classList.add('light-theme');
-                themeToggle.textContent = '🌞';
+                if (themeToggle) themeToggle.textContent = '🌞';
             }
             
-            // Load logo and screenshots from GitHub
-            loadLogo('./Logo.png');
-            setupScreenshots([
-                {
-                    src: './Image1.png',
-                    title: 'Programme Overview Dashboard',
-                    alt: 'Main dashboard showing total sessions, unique attendees, programme participation and weekly sessions'
-                },
-                {
-                    src: './Image2.png', 
-                    title: 'Session Summary & Performance',
-                    alt: 'Individual session performance analysis with attendance data and completion charts'
-                },
-                {
-                    src: './Image3.png',
-                    title: 'Individual Progress Tracking',
-                    alt: 'Person-by-session attendance matrix with detailed progress monitoring'
-                },
-                {
-                    src: './Image4.png',
-                    title: 'Agency Performance Summary',
-                    alt: 'Agency-level engagement analytics with attendance rates and assignment compliance'
-                }
-            ]);
+            // Load logo with error handling
+            try {
+                loadLogo('./Logo.png');
+            } catch (e) {
+                console.log('Logo loading failed:', e);
+            }
+            
+            // Setup screenshots with error handling
+            try {
+                setupScreenshots([
+                    {
+                        src: './Image1.png',
+                        title: 'Programme Overview Dashboard',
+                        alt: 'Main dashboard showing total sessions, unique attendees, programme participation and weekly sessions'
+                    },
+                    {
+                        src: './Image2.png', 
+                        title: 'Session Summary & Performance',
+                        alt: 'Individual session performance analysis with attendance data and completion charts'
+                    },
+                    {
+                        src: './Image3.png',
+                        title: 'Individual Progress Tracking',
+                        alt: 'Person-by-session attendance matrix with detailed progress monitoring'
+                    },
+                    {
+                        src: './Image4.png',
+                        title: 'Agency Performance Summary',
+                        alt: 'Agency-level engagement analytics with attendance rates and assignment compliance'
+                    }
+                ]);
+            } catch (e) {
+                console.log('Screenshot setup failed:', e);
+            }
             
             // Start auto-switching tabs after initial animations complete
             setTimeout(() => {
-                startAutoSwitch();
-                loadScreenshots();
+                try {
+                    startAutoSwitch();
+                    loadScreenshots();
+                } catch (e) {
+                    console.log('Auto-switch failed:', e);
+                }
             }, 8000); // Start after all entrance animations
         });
 
-        // Logo loading functionality
+        // Logo loading functionality with better error handling
         function loadLogo(logoUrl) {
             const logoImg = document.getElementById('logo-img');
             const logoPlaceholder = document.getElementById('logo-placeholder');
             
-            if (logoUrl) {
+            if (logoUrl && logoImg && logoPlaceholder) {
+                logoImg.onload = function() {
+                    logoImg.style.display = 'block';
+                    logoPlaceholder.style.display = 'none';
+                };
+                logoImg.onerror = function() {
+                    console.log('Logo failed to load:', logoUrl);
+                    // Keep placeholder visible
+                };
                 logoImg.src = logoUrl;
-                logoImg.style.display = 'block';
-                logoPlaceholder.style.display = 'none';
             }
         }
 
