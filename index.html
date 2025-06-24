@@ -343,7 +343,7 @@
 
         .logo-space {
             width: clamp(280px, 28vw, 350px);
-            height: clamp(75px, 12vw, 100px);
+            height: clamp(90px, 15vw, 130px);
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -355,7 +355,7 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            padding: 10px;
+            padding: 15px 10px;
         }
 
         .logo-space img {
@@ -501,6 +501,18 @@
 
         .cta-button:hover::before {
             left: 100%;
+        }
+
+        .cta-subtext {
+            font-size: clamp(12px, 2vw, 14px);
+            color: rgba(255, 255, 255, 0.5);
+            font-style: italic;
+            margin-top: 8px;
+            text-align: left;
+        }
+
+        body.light-theme .cta-subtext {
+            color: var(--neutral-500);
         }
 
         /* Right panel with navigation tabs */
@@ -1007,6 +1019,7 @@
                         across all CLM sessions and training initiatives. Transform data into actionable intelligence.
                     </p>
                     <button class="cta-button" onclick="window.open('https://app.powerbi.com/links/fCstNjzpCD?ctid=d026e4c1-5892-497a-b9da-ee493c9f0364&pbi_source=linkShare', '_blank')">Launch Dashboard</button>
+                    <p class="cta-subtext">*PowerBI license required</p>
                 </div>
 
                 <!-- Interactive Preview Panel -->
