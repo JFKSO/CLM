@@ -358,8 +358,12 @@
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
-            filter: brightness(0) invert(1);
-            transition: filter 0.3s ease;
+            transition: all 0.3s ease;
+        }
+
+        /* Only invert in light theme if needed */
+        body.light-theme .logo-space img {
+            /* Remove filter to show original colors */
         }
 
         /* Fallback text when no logo */
