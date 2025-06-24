@@ -167,6 +167,10 @@
             color: var(--neutral-600);
         }
 
+        body.light-theme .screenshot-title {
+            color: var(--neutral-700);
+        }
+
         /* Theme toggle button */
         .theme-toggle {
             position: fixed;
@@ -359,11 +363,6 @@
             max-height: 100%;
             object-fit: contain;
             transition: all 0.3s ease;
-        }
-
-        /* Only invert in light theme if needed */
-        body.light-theme .logo-space img {
-            /* Remove filter to show original colors */
         }
 
         /* Fallback text when no logo */
@@ -578,12 +577,13 @@
             position: relative;
             overflow: hidden;
             transition: all 0.4s ease;
-            height: 450px;
+            min-height: 450px;
+            height: auto;
         }
 
         /* Extend only for Intelligence tab */
         .preview-container:has(#tech.active) {
-            height: 600px;
+            min-height: 520px;
         }
 
         .preview-container::before {
@@ -603,7 +603,7 @@
             50% { opacity: 1; }
         }
 
-        /* Content sections - BACK TO ORIGINAL */
+        /* Content sections */
         .content-section {
             display: none;
         }
@@ -618,7 +618,7 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* Metrics section - BACK TO ORIGINAL */
+        /* Metrics section */
         .metrics-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -677,7 +677,7 @@
             letter-spacing: 0.05em;
         }
 
-        /* Tech section - BACK TO ORIGINAL */
+        /* Tech section */
         .tech-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -685,7 +685,7 @@
             margin-bottom: clamp(20px, 3vw, 24px);
         }
 
-        /* Complexity showcase - BACK TO ORIGINAL */
+        /* Complexity showcase */
         .complexity-list {
             margin-top: 16px;
         }
@@ -772,6 +772,7 @@
             align-items: center;
             text-align: center;
             padding: 10px 0;
+            min-height: 380px;
         }
 
         .screenshot-display {
@@ -782,12 +783,12 @@
             width: 100%;
             margin-bottom: 12px;
             position: relative;
-            min-height: 200px;
+            min-height: 280px;
         }
 
         .screenshot-image {
             max-width: 100%;
-            max-height: 280px;
+            max-height: 320px;
             width: auto;
             height: auto;
             border-radius: 8px;
@@ -806,7 +807,7 @@
             position: relative;
             overflow: hidden;
             width: 100%;
-            height: 200px;
+            height: 280px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -854,10 +855,6 @@
             font-weight: 500;
             margin-bottom: 8px;
             min-height: 20px;
-        }
-
-        body.light-theme .screenshot-title {
-            color: var(--neutral-700);
         }
 
         /* Status indicators */
@@ -1086,10 +1083,6 @@
                                     <div class="complexity-challenge">Multiple sign-ins per person per session</div>
                                     <div class="complexity-solution">→ Intelligent deduplication with priority rules</div>
                                 </div>
-                                <div class="complexity-item">
-                                    <div class="complexity-challenge">Cross-agency assignment compliance tracking</div>
-                                    <div class="complexity-solution">→ Real-time attendance vs assignment analysis</div>
-                                </div>
                             </div>
                         </div>
 
@@ -1139,7 +1132,7 @@
                     currentTab = (currentTab + 1) % tabs.length;
                     showSection(tabs[currentTab], true);
                 }
-            }, 8000); // Switch every 8 seconds (was 4 seconds)
+            }, 8000); // Switch every 8 seconds
         }
 
         // Enhanced section switching functionality
@@ -1231,7 +1224,7 @@
                     screenshotInterval = setInterval(() => {
                         currentScreenshot = (currentScreenshot + 1) % validScreenshots.length;
                         showScreenshot(currentScreenshot);
-                    }, 3000); // Change every 3 seconds
+                    }, 6000); // Change every 6 seconds (was 3 seconds)
                 }
             } else {
                 // Keep placeholder
